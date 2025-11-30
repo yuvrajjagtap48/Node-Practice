@@ -32,28 +32,45 @@
 
 
 
+// const express = require('express');
+
+// const app = express();
+
+// app.get("/user",( req, res) => {
+//     res.send({name: 'John Doe', age: 30});
+// });  // this will match only GET API calls to /user
+ 
+// app.post("/user",( req, res) => {
+//     res.send('User created successfully!');
+// });  // this will match only POST API calls to /user
+
+// app.delete("/user",( req, res) => {
+//     res.send('User deleted successfully!');
+// });  // this will match only DELETE API calls to /user
+
+
+
+
+// app.use("/test",( req, res) => {
+//     res.send('Hello, hello, hello!');
+// });  // this will match all the HTTP methos API calls to /test
+
+// app.listen(3000 ,() => {
+//     console.log('Server is running on port 3000');
+//  });
+
+
+
+
+
 const express = require('express');
 
 const app = express();
 
-app.get("/user",( req, res) => {
+app.get("/user/:userId",( req, res) => {
+    console.log(req.params); // to access query parameters
     res.send({name: 'John Doe', age: 30});
-});  // this will match only GET API calls to /user
- 
-app.post("/user",( req, res) => {
-    res.send('User created successfully!');
-});  // this will match only POST API calls to /user
-
-app.delete("/user",( req, res) => {
-    res.send('User deleted successfully!');
-});  // this will match only DELETE API calls to /user
-
-
-
-
-app.use("/test",( req, res) => {
-    res.send('Hello, hello, hello!');
-});  // this will match all the HTTP methos API calls to /test
+});  
 
 app.listen(3000 ,() => {
     console.log('Server is running on port 3000');
