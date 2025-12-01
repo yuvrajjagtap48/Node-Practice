@@ -15,3 +15,8 @@
 - reading the query params in the routes 
 - reading the dynamic routes 
 
+
+- Multiple route handlers 
+- next() 
+- next function and error along with res.send()
+- app.use ("/route", rH , rH2, [rH3, rH4], rH5)

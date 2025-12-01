@@ -65,45 +65,84 @@
 //     console.log('Server is running on port 3000');
 //  });
 
-const express = require("express");
+// // next() function example
+// const express = require("express");
 
-const app = express();
+// const app = express();
 
-app.use(
-  "/user", [
-  (req, res, next) => {
-    console.log("Handling the route user !! ");
-    // res.send("Response !!");
-    next(); // to pass the control to next handler
-  },
-  (req, res,next) => {
-    console.log("Handling the route user 2 !! ");
-    // res.send("2nd Response !!");
-    next();
-  },
-   (req, res,next) => {
-    console.log("Handling the route user 2 !! ");
-    // res.send("3nd Response !!");
-    next();
-  },
-   (req, res,next) => {
-    console.log("Handling the route user 2 !! ");
-    // res.send("4nd Response !!");
-    next();
-  },
-   (req, res, next) => {
-    console.log("Handling the route user 2 !! ");
-    res.send("5nd Response !!");
-  }
-]
-);
+// app.use(
+//   "/user", [
+//   (req, res, next) => {
+//     console.log("Handling the route user !! ");
+//     // res.send("Response !!");
+//     next(); // to pass the control to next handler
+//   },
+//   (req, res,next) => {
+//     console.log("Handling the route user 2 !! ");
+//     // res.send("2nd Response !!");
+//     next();
+//   },
+//    (req, res,next) => {
+//     console.log("Handling the route user 2 !! ");
+//     // res.send("3nd Response !!");
+//     next();
+//   },
+//    (req, res,next) => {
+//     console.log("Handling the route user 2 !! ");
+//     // res.send("4nd Response !!");
+//     next();
+//   },
+//    (req, res, next) => {
+//     console.log("Handling the route user 2 !! ");
+//     res.send("5nd Response !!");
+//   }
+// ]
+// );
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
-//  as soon as request comes to this routes it go to first route handler because it excute line by line know console log will be printed and response will be sent and request send
-//  if there is no  res.send("Response !!"); then it will not go to next handler it will hang there unless you call next() function to go to next route handler
-// if add  res.send("Response !!"); and next() both then it will give error because response can be sent only once.  as soon as we send this excuted this function it go in callback stack and it excute line by line and when next() is called it will give error because response is already sent.
-// as a developer we dont write code like this
-// if you send next() then dont send response in that handler then express will expecting response to be sent in next handler that means we can not GET response, express want make how many routes you want to but at the end response should be sent.
-// you add this functions inside array [] you send 1 or 2 or more functions inside array 
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// });
+// //  as soon as request comes to this routes it go to first route handler because it excute line by line know console log will be printed and response will be sent and request send
+// //  if there is no  res.send("Response !!"); then it will not go to next handler it will hang there unless you call next() function to go to next route handler
+// // if add  res.send("Response !!"); and next() both then it will give error because response can be sent only once.  as soon as we send this excuted this function it go in callback stack and it excute line by line and when next() is called it will give error because response is already sent.
+// // as a developer we dont write code like this
+// // if you send next() then dont send response in that handler then express will expecting response to be sent in next handler that means we can not GET response, express want make how many routes you want to but at the end response should be sent.
+// // you add this functions inside array [] you send 1 or 2 or more functions inside array
+
+
+// // middleware function example 
+
+// const express = require("express");
+
+// const app = express();
+
+// app.use(
+//   "/",
+//   (req, res, next) => {
+//     next();
+//   });
+// // GET /user => it check all the app.xxx("matching route") functions and try to send response back if it dont not find any matching route it will hang there unless timeout occurs
+// // it go to every function till function that actually send response back that function know as request handler and all function that go through in between known as middleware 
+// // GET /user => middleware chain => request handler 
+
+// app.get(
+//   "/user",
+//   (req, res, next) => {
+//     next();
+//   },
+//   (req, res, next) => {
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("Handling the route user 3 !! ");
+//     res.send("3nd Response !!");
+//   }
+// );
+
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// });
+// // function that you put in middle " (req, res, next) => {next();},(req, res, next) => {next();} " is called middleware function
+
+
+
