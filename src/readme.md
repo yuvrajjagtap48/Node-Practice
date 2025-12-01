@@ -33,6 +33,10 @@
 - call the conncetDB function and conncet to database before statring application on 3000
 - Created a userSchema and userModel
 - Created /signup API to add data to databse 
-- 
-- 
+
+
+
+
+
+- JS Object vs JSON (diffrenece)
  

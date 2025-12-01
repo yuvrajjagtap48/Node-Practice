@@ -234,17 +234,12 @@ const connectDB = require("./config/database"); // to connect to database
 const app = express();
 const User = require("./models/user"); // User model
 
-app.post("/signup", async (req, res) => {
-     // creating user instance using above data
-    const user = new User ({
-        firstName: "Yuvraj",
-        lastName: "Jagtap",
-        email: "yuvrajjagtap@gmail.com",
-        password: "yuvraj123",
-        gender: "male",
-        age: 21
-    });
+app.use(express.json()); // middleware to read json data we just define once it will work for all routes
+// If i give app.use(()=>) it will work for all the routes
 
+app.post("/signup", async (req, res) => {
+    //  creating user instance using above data
+    const user = new User (req.body); // we can not directly get this data because express dont know how to read json data because express only read JS object data and responce is give in JSON format for that we need to use middleware for that(express.json())
 
     try {
     await user.save()  // saving user to database
