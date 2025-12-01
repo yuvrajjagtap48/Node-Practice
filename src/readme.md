@@ -39,4 +39,8 @@
 
 
 - JS Object vs JSON (diffrenece)
+- Added express.json middleware to app
+- Make signup API dynmaic to recive data from the user
+- Used User.find() 
+
  

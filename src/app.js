@@ -251,6 +251,15 @@ app.post("/signup", async (req, res) => {
 });
 
 
+// Feed API - Get all the users from database 
+app.get("/feed", async (req, res) => {
+    try {
+    const users = await User.find({});
+    res.json(users);
+    } catch (err) {
+    res.status(500).send("Error fetching users");
+    }   
+});
 
 connectDB().then(() => {
   console.log("Database connected successfully");
