@@ -54,3 +54,4 @@
 - DATA Sanitizing - Add API validation for each field 
 - Install Validator
 - Explore validator library function and use it for password, email, URL
+- NEVER TRUST req.body =>  it will bring malicious data into website and always keep validation
