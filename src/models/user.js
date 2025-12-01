@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     email : { type: String },
     password : { type: String },
     age : { type: Number },
-    gender : { type: String}
+    gender : { type: String }
 });
 
 // always write first letter of model name in capital letter
