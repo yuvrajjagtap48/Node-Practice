@@ -24,5 +24,15 @@
 - How express JS basically handle requests behind the scenes 
 - Diffrence between app.use and app.all
 - Write a dummy middleware for admin
-- 
+- Error Handling using app.use("/", (err, req, res, next)=> {});
 
+
+- Created a free cluster on MongoDB compass
+- Install mongoose library 
+- conncet application to the databse 
+- call the conncetDB function and conncet to database before statring application on 3000
+- Created a userSchema and userModel
+- 
+- 
+- 
+ 

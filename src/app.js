@@ -197,32 +197,49 @@
 //   console.log("Server is running on port 3000");
 // });
 
+// // Error Handling In Middleware
+// const express = require("express");
+
+// const app = express();
+
+// app.get("/admin/getUserData", (req, res) => {
+//   try {
+//     // Logic of DB call
+//     throw new Error("DB connection failed !!");
+
+//     res.send("User Data send");
+//   } catch (err) {
+//     res.status(500).send("Something went wrong ");
+//   }
+// });
+// //err shold be a first parameter because express identify this function as error handling middleware only if first parameter is error
+// // this order is matter a lot
+// app.use("/", (err, req, res, next) => {
+//   if (err) {
+//   }
+// });
+
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// });
 
 
 
 
-// Error Handling In Middleware
+
+// First connect to DataBase then start the server very very imp thing about your app is start but it not connect to databse then user will not get proper data 
+// Moongoose example
 const express = require("express");
-
+const connectDB = require("./config/database"); // to connect to database
 const app = express();
 
-app.get("/admin/getUserData", (req, res) => {
-  try {
-    // Logic of DB call
-    throw new Error("DB connection failed !!");
+connectDB().then(() => {
+  console.log("Database connected successfully");
 
-    res.send("User Data send");
-  } catch (err) {
-    res.status(500).send("Something went wrong ");
-  }
-});
-//err shold be a first parameter because express identify this function as error handling middleware only if first parameter is error
-// this order is matter a lot
-app.use("/", (err, req, res, next) => {
-  if (err) {
-  }
-});
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+  app.listen(3000, () => {
+      console.log("Server is running on port 3000");
+    });
+}) 
+    .catch((err) => {
+      console.error("Database connection failed", err);
+    });
