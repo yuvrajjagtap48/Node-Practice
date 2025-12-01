@@ -55,4 +55,10 @@
 - Install Validator
 - Explore validator library function and use it for password, email, URL
 - NEVER TRUST req.body =>  it will bring malicious data into website and always keep validation
--
+
+
+- Validate data in Signup API
+- Install bcrypt package 
+- Create passwordhas using bcrypt.hsh & save the user is excuted password 
+- Created login API
+- Compare passwords and throw errors if email or password is invalid 
