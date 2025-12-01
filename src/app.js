@@ -143,16 +143,6 @@
 // });
 // // function that you put in middle " (req, res, next) => {next();},(req, res, next) => {next();} " is called middleware function
 
-
-
-
-
-
-
-
-
-
-
 // Real world example of middleware
 // const express = require("express");
 
@@ -184,29 +174,54 @@
 //   console.log("Server is running on port 3000");
 // } );
 
-
 // if you want to does not repeat the authorization logic in every admin route every time we write authorization logic then we check admin is valid or not then we give them access to route we dont want to repeat this logic again and again for every admin route
 // if you want to avoid repeating the authorization logic in every admin route you can use middleware
+// const express = require("express");
+
+// const app = express();
+
+// const {adminAuth} = require("./middlewares/auth");
+
+// console.log("Admin auth is getting checked !!");
+// app.use("/admin", adminAuth);
+
+// app.get("/admin/getAllData", (req, res) => {
+//   res.send("All Data send");
+// });
+
+// app.get("/admin/deleteUser", (req, res) => {
+//     res.send("Delete User");
+// });
+
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// });
+
+
+
+
+
+// Error Handling In Middleware
 const express = require("express");
 
 const app = express();
 
-const {adminAuth} = require("./middlewares/auth");
+app.get("/admin/getUserData", (req, res) => {
+  try {
+    // Logic of DB call
+    throw new Error("DB connection failed !!");
 
-
-console.log("Admin auth is getting checked !!");
-app.use("/admin", adminAuth);
-
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All Data send");
+    res.send("User Data send");
+  } catch (err) {
+    res.status(500).send("Something went wrong ");
+  }
 });
-
-app.get("/admin/deleteUser", (req, res) => {
-    res.send("Delete User");
+//err shold be a first parameter because express identify this function as error handling middleware only if first parameter is error
+// this order is matter a lot
+app.use("/", (err, req, res, next) => {
+  if (err) {
+  }
 });
-
-
-
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

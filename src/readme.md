@@ -22,3 +22,7 @@
 - app.use ("/route", rH , rH2, [rH3, rH4], rH5)
 - middlewares 
 - How express JS basically handle requests behind the scenes 
+- Diffrence between app.use and app.all
+- Write a dummy middleware for admin
+- 
+
