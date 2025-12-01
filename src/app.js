@@ -223,11 +223,7 @@
 //   console.log("Server is running on port 3000");
 // });
 
-
-
-
-
-// First connect to DataBase then start the server very very imp thing about your app is start but it not connect to databse then user will not get proper data 
+// First connect to DataBase then start the server very very imp thing about your app is start but it not connect to databse then user will not get proper data
 // Moongoose example
 const express = require("express");
 const connectDB = require("./config/database"); // to connect to database
@@ -238,67 +234,75 @@ app.use(express.json()); // middleware to read json data we just define once it 
 // If i give app.use(()=>) it will work for all the routes
 
 app.post("/signup", async (req, res) => {
-    //  creating user instance using above data
-    const user = new User (req.body); // we can not directly get this data because express dont know how to read json data because express only read JS object data and responce is give in JSON format for that we need to use middleware for that(express.json())
+  //  creating user instance using above data
+  const user = new User(req.body); // we can not directly get this data because express dont know how to read json data because express only read JS object data and responce is give in JSON format for that we need to use middleware for that(express.json())
 
-    try {
-    await user.save()  // saving user to database
+  try {
+    await user.save(); // saving user to database
     res.send("User signed up successfully");
-    }
-    catch (err) {
+  } catch (err) {
     res.status(400).send("Error signing up user");
-    }
+  }
 });
 
-// Feed API - Get all the users from database 
+// Feed API - Get all the users from database
 app.get("/feed", async (req, res) => {
-    try {
+  try {
     const users = await User.find({});
     res.json(users);
-    } catch (err) {
+  } catch (err) {
     res.status(500).send("Error fetching users");
-    }   
+  }
 });
 
 // in this case i dont define userID so it will delete first user that it find in database
 app.delete("/user", async (req, res) => {
-    const userId = req.body.userId;
-    try {
-        // const user = await User.findByIdAndDelete({ _id: userId }); we can also write like this below is a shorthand version of this
-        const user = await User.findByIdAndDelete(userId);
-        res.send("User deleted successfully");
-    } catch (err) {
-        res.status(500).send("Error deleting user");
-    }   
-
+  const userId = req.body.userId;
+  try {
+    // const user = await User.findByIdAndDelete({ _id: userId }); we can also write like this below is a shorthand version of this
+    const user = await User.findByIdAndDelete(userId);
+    res.send("User deleted successfully");
+  } catch (err) {
+    res.status(500).send("Error deleting user");
+  }
 });
 
 //update data of user
-app.patch("/user", async (req, res) => {
-    const userId = req.body.userId;
-    const data = req.body;
-    try {
-        const user = await User.findByIdAndUpdate(
-            { _id: userId },
-            data,
-            {
-                returnDocument: "after",
-                runValidators: true,
-            }
-        );
-        res.send("User data updated successfully");
-    } catch (err) {
-        res.status(400).send("Error updating user data");
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
+  const data = req.body;
+
+  // allowed updates
+
+  try {
+    const ALLOWED_UPDATES = [ "photoUrl", "about", "gender", "age", "skills"];
+    const isUpateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_UPDATES.includes(k)
+    );
+    if (!isUpateAllowed) {
+      throw new Error(" updates not allowed");
     }
+    if (data?.skills.length > 10) {
+        throw new Error("Skills can not be more than 10");
+        }
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+    res.send("User data updated successfully");
+  } catch (err) {
+    res.status(400).send("Error updating user data");
+  }
 });
 
-connectDB().then(() => {
-  console.log("Database connected successfully");
+connectDB()
+  .then(() => {
+    console.log("Database connected successfully");
 
-  app.listen(3000, () => {
+    app.listen(3000, () => {
       console.log("Server is running on port 3000");
     });
-}) 
-    .catch((err) => {
-      console.error("Database connection failed", err);
-    });
+  })
+  .catch((err) => {
+    console.error("Database connection failed", err);
+  });

@@ -36,8 +36,6 @@
 
 
 
-
-
 - JS Object vs JSON (diffrenece)
 - Added express.json middleware to app
 - Make signup API dynmaic to recive data from the user
@@ -47,5 +45,11 @@
 - Explore the Mongoose Documents for Model methods 
 
 
+
+- Explore schemeType options from the documention
+- add reqiued, unique, lowercase, min, minlength, trim
+- Create a custom validate function for gender
+- Improve the DB schema - put all appropiate validations on each field in schema 
+- add timetamps to te userSchema
 
  
