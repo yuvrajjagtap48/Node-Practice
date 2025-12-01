@@ -250,7 +250,6 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-
 // Feed API - Get all the users from database 
 app.get("/feed", async (req, res) => {
     try {
@@ -259,6 +258,31 @@ app.get("/feed", async (req, res) => {
     } catch (err) {
     res.status(500).send("Error fetching users");
     }   
+});
+
+// in this case i dont define userID so it will delete first user that it find in database
+app.delete("/user", async (req, res) => {
+    const userId = req.body.userId;
+    try {
+        // const user = await User.findByIdAndDelete({ _id: userId }); we can also write like this below is a shorthand version of this
+        const user = await User.findByIdAndDelete(userId);
+        res.send("User deleted successfully");
+    } catch (err) {
+        res.status(500).send("Error deleting user");
+    }   
+
+});
+
+//update data of user
+app.patch("/user", async (req, res) => {
+    const userId = req.body.userId;
+    const data = req.body;
+    try {
+        const user = await User.findByIdAndUpdate({ _id: userId }, data);
+        res.send("User data updated successfully");
+    } catch (err) {
+        res.status(500).send("Error updating user data");
+    }
 });
 
 connectDB().then(() => {

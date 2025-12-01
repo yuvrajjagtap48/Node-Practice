@@ -42,5 +42,10 @@
 - Added express.json middleware to app
 - Make signup API dynmaic to recive data from the user
 - Used User.find() 
+- Create a Delete user API
+- diffrence ber=tween PATCH and PUT API
+- Explore the Mongoose Documents for Model methods 
+
+
 
  
