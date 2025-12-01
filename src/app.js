@@ -109,8 +109,7 @@
 // // if you send next() then dont send response in that handler then express will expecting response to be sent in next handler that means we can not GET response, express want make how many routes you want to but at the end response should be sent.
 // // you add this functions inside array [] you send 1 or 2 or more functions inside array
 
-
-// // middleware function example 
+// // middleware function example
 
 // const express = require("express");
 
@@ -122,8 +121,8 @@
 //     next();
 //   });
 // // GET /user => it check all the app.xxx("matching route") functions and try to send response back if it dont not find any matching route it will hang there unless timeout occurs
-// // it go to every function till function that actually send response back that function know as request handler and all function that go through in between known as middleware 
-// // GET /user => middleware chain => request handler 
+// // it go to every function till function that actually send response back that function know as request handler and all function that go through in between known as middleware
+// // GET /user => middleware chain => request handler
 
 // app.get(
 //   "/user",
@@ -146,3 +145,69 @@
 
 
 
+
+
+
+
+
+
+
+
+// Real world example of middleware
+// const express = require("express");
+
+// const app = express();
+
+// app.get("/admin/getAllData", (req, res) => {
+//     // logic of checking if the request is authorized
+//     const token = "xyzadcv";
+//     const isAdminAuthorized = token === "xyz";
+//     if (isAdminAuthorized) {
+//         res.send("All Data send");
+//     }else {
+//     res.status(401).send("Unauthorized Access");
+//     }
+// });
+// app.get("/admin/deleteUser", (req, res) => {
+//     // logic of checking if the request is authorized
+//     const token = "xyzadcv";
+//     const isAdminAuthorized = token === "xyz";
+//     if (isAdminAuthorized) {
+//         res.send("Delete User");
+//     }else {
+//     res.status(401).send("Unauthorized Access");
+//     }
+
+// });
+
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// } );
+
+
+// if you want to does not repeat the authorization logic in every admin route every time we write authorization logic then we check admin is valid or not then we give them access to route we dont want to repeat this logic again and again for every admin route
+// if you want to avoid repeating the authorization logic in every admin route you can use middleware
+const express = require("express");
+
+const app = express();
+
+const {adminAuth} = require("./middlewares/auth");
+
+
+console.log("Admin auth is getting checked !!");
+app.use("/admin", adminAuth);
+
+app.get("/admin/getAllData", (req, res) => {
+  res.send("All Data send");
+});
+
+app.get("/admin/deleteUser", (req, res) => {
+    res.send("Delete User");
+});
+
+
+
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});

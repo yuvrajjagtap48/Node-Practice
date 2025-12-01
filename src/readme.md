@@ -20,3 +20,5 @@
 - next() 
 - next function and error along with res.send()
 - app.use ("/route", rH , rH2, [rH3, rH4], rH5)
+- middlewares 
+- How express JS basically handle requests behind the scenes 
