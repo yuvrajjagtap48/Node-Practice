@@ -63,15 +63,31 @@
 
 
 
+// const express = require('express');
+
+// const app = express();
+
+// app.get("/user/:userId",( req, res) => {
+//     console.log(req.params); // to access query parameters
+//     res.send({name: 'John Doe', age: 30});
+// });  
+
+// app.listen(3000 ,() => {
+//     console.log('Server is running on port 3000');
+//  });
+
+
+
 const express = require('express');
 
 const app = express();
 
-app.get("/user/:userId",( req, res) => {
-    console.log(req.params); // to access query parameters
-    res.send({name: 'John Doe', age: 30});
-});  
+app.use("user", ( req, res) => {
+    //Roter Handler 
+    req.send("Route Handler 1");
+});
 
 app.listen(3000 ,() => {
     console.log('Server is running on port 3000');
  });
+
