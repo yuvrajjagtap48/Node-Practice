@@ -51,5 +51,6 @@
 - Create a custom validate function for gender
 - Improve the DB schema - put all appropiate validations on each field in schema 
 - add timetamps to te userSchema
-
- 
+- DATA Sanitizing - Add API validation for each field 
+- Install Validator
+- Explore validator library function and use it for password, email, URL
